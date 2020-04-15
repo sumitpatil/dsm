@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+
 
 //use App\MasterUnitStageCapacity;
 use App;
@@ -54,6 +56,12 @@ class MasterUnitStageCapacityController extends Controller
                 ]);
             }
 
+            // artisan call migrate:reset
+            Artisan::call('migrate:reset');
+
+            
+            Artisan::call('migrate');
+
             $unit_name = $request->unit_name;
             $stage_name = $request->stage_name;
             $capacity_name = $request->capacity_name;
@@ -66,15 +74,20 @@ class MasterUnitStageCapacityController extends Controller
                     );
                 $insert_data[] = $data; 
             }
-          /*  
-            $name='APP\MasterUnitStageCapacit';
-            $name=$name +'y';
-            error_log($name);
+            
+            error_log('MasterUnitStageCapacityController : before model_name');    
+            $model_name = '\\App\\'.'MasterUnitStageCapacity';
 
-            $name::insert($insert_data);
-            error_log('MasterUnitStageCapacity : after insert query'.$name);
-            */
-            App\MasterUnitStageCapacity::insert($insert_data);
+            error_log('MasterUnitStageCapacityController : before model_name'.$model_name);    
+
+            $model = new $model_name;
+            error_log('MasterUnitStageCapacityController : after instance create');    
+
+            $model->insert($insert_data);
+
+            error_log('MasterUnitStageCapacityController : after insert operation');    
+
+            // App\MasterUnitStageCapacity::insert($insert_data);
 
             
 
