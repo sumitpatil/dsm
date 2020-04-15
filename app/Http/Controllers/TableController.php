@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class TableController extends Controller
 {
@@ -20,6 +22,8 @@ class TableController extends Controller
     {
         // check if table is not already exists
         if (!Schema::hasTable($table_name)) {
+            error_log('tableController createtable function in if');
+            
             Schema::create($table_name, function (Blueprint $table) use ($fields, $table_name) {
                 $table->increments('id');
                 if (count($fields) > 0) {
@@ -28,30 +32,70 @@ class TableController extends Controller
                     }
                 }
                 $table->timestamps();
-            });
 
+            });
+            
             return response()->json(['message' => 'Given table has been successfully created!'], 200);
         }
 
         return response()->json(['message' => 'Given table is already existis.'], 400);
     }
 
-    public function operate()
+    public function operate( $unit_value = [] )
     {
         // set dynamic table name according to your requirements
 
-        $table_name = 'demo';
+        $table_name = '';
+        
+        error_log('tableController operate');
+        for($count = 0; $count < count($unit_value); $count++)
+        {
+            error_log('tableController operate in for loop');
+            $table_name = 'input_unit_';
 
-        // set your dynamic fields (you can fetch this data from database this is just an example)
-        $fields = [
-            ['name' => 'field_1', 'type' => 'string'],
-            ['name' => 'field_2', 'type' => 'text'],
-            ['name' => 'field_3', 'type' => 'integer'],
-            ['name' => 'field_4', 'type' => 'longText']
+            $table_name = $table_name.$unit_value[$count];
+
+            error_log('tableController operate in for loop befor model'.$table_name);
+        
+            //creating model for table all tables
+
+            Artisan::call('make:model',['name' => $table_name] );
+
+           // error_log('tableController operate in for loop after model');
+
+            //add s to all table name (required)
+            $table_name = $table_name.'s';
+            
+            error_log('tableController operate in for loop before field'.$table_name);
+
+            // set your dynamic fields (you can fetch this data from database this is just an example)
+            $fields = [
+                ['name' => 'load', 'type' => 'integer'],
+                ['name' => 'coal_flow', 'type' => 'integer'],
+                ['name' => 'exbus', 'type' => 'integer'],
+                ['name' => 'station_consumption', 'type' => 'integer']
+            ];
+            
+            $this->createTable($table_name, $fields);
+        }
+        
+        error_log('tableController operate end for loop');
+
+        $table_name = 'master_dsm_block2';
+
+
+        $fields =[
+            ['name' => 'load', 'type' => 'integer'],
+            ['name' => 'coal_flow', 'type' => 'integer'],
+            ['name' => 'exbus', 'type' => 'integer']
+                
         ];
 
-        return $this->createTable($table_name, $fields);
-    }
+        return response()->json([
+            'success'  => 'Data Added successfully. Also create tables'
+            ]);
+
+    } //end of operate funtion
 
          /**
      * To delete the tabel from the database 
@@ -65,5 +109,5 @@ class TableController extends Controller
         Schema::dropIfExists($table_name); 
         
         return true;
-    }
+    }//end of removeTable funtion
 }

@@ -31,4 +31,5 @@ class CreateMasterUnitStageCapacitiesTable extends Migration
     {
         Schema::dropIfExists('master_unit_stage_capacities');
     }
+    
 }

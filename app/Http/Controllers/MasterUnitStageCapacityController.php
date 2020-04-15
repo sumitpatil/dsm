@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\MasterUnitStageCapacity;
+//use App\MasterUnitStageCapacity;
+use App;
 use Validator;
-
+use App\Http\Controllers\TableController;
 
 class MasterUnitStageCapacityController extends Controller
 {
@@ -40,39 +41,54 @@ class MasterUnitStageCapacityController extends Controller
     }
 */
     function insert(Request $request){      
-        if($request->ajax())
-        {
-        $rules = array(
-        'first_name.*'  => 'required',
-        'last_name.*'  => 'required'
-        );
-        $error = Validator::make($request->all(), $rules);
-        if($error->fails())
-        {
-        return response()->json([
-            'error'  => $error->errors()->all()
-        ]);
-        }
-
-        $unit_name = $request->unit_name;
-        $stage_name = $request->stage_name;
-        $capacity_name = $request->capacity_name;
-
-        for($count = 0; $count < count($capacity_name); $count++)
-        {
-        $data = array(
-                'unit_name' => $unit_name[$count],
-                'stage_name'  => $stage_name[$count],
-                'capacity_name'  => $capacity_name[$count]
+        if($request->ajax()){
+            $rules = array(
+            'unit_name.*'  => 'required',
+            'stage_name.*'  => 'required',
+            'capacity_name.*' => 'required'
             );
-        $insert_data[] = $data; 
-        }
+            $error = Validator::make($request->all(), $rules);
+            if($error->fails()){
+                return response()->json([
+                    'error'  => $error->errors()->all()
+                ]);
+            }
 
-        MasterUnitStageCapacity::insert($insert_data);
-        return response()->json([
-        'success'  => 'Data Added successfully.'
-        ]);
-        }
+            $unit_name = $request->unit_name;
+            $stage_name = $request->stage_name;
+            $capacity_name = $request->capacity_name;
+
+            for($count = 0; $count < count($capacity_name); $count++){
+                $data = array(
+                        'unit_name' => $unit_name[$count],
+                        'stage_name'  => $stage_name[$count],
+                        'capacity_name'  => $capacity_name[$count]
+                    );
+                $insert_data[] = $data; 
+            }
+          /*  
+            $name='APP\MasterUnitStageCapacit';
+            $name=$name +'y';
+            error_log($name);
+
+            $name::insert($insert_data);
+            error_log('MasterUnitStageCapacity : after insert query'.$name);
+            */
+            App\MasterUnitStageCapacity::insert($insert_data);
+
+            
+
+        /*   
+            return response()->json([
+            'success'  => 'Data Added successfully.'
+            ]);
+        */   
+                //for creating table after getting entry
+
+                $tableCon =new TableController();
+                error_log('MasterUnitStageCapacityController');
+                return $tableCon->operate($unit_name);
+            }
     }//index with argument
     
 

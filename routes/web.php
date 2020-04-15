@@ -27,8 +27,4 @@ Route::get('/installation','MasterUnitStageCapacityController@index');
 Route::post('/installation/insert','MasterUnitStageCapacityController@insert')->name('master.insert');
 
 //testing code
-Route::get('dynamic-field', 'DynamicFieldController@index');
-
-Route::post('dynamic-field/insert', 'DynamicFieldController@insert')->name('dynamic-field.insert');
-
 Route::get('/create-table', 'TableController@operate');
