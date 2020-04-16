@@ -19,6 +19,33 @@
                  <table class="table table-bordered table-striped" id="user_table">
                <thead>
                 <tr>
+                    <th colspan="2">Host Name : </th>
+                    <th colspan="2">{{config('database.connections.mysql.host')}} </th>
+                </tr>
+                
+                <tr>
+                    <th colspan="2">Database Name : </th>
+                    <th colspan="2">{{config('database.connections.mysql.database')}} </th>
+                </tr>
+                <tr>
+                    <th colspan="2">Database Username : </th>
+                    <th colspan="2">{{config('database.connections.mysql.username')}} </th>
+                </tr>
+                <tr>
+                    <th colspan="2">Database Password : </th>
+                    <th colspan="2">{{config('database.connections.mysql.password')}} </th>
+                </tr>
+                <tr>
+                    <th colspan="4">
+                        If aboves values not valid then Please set Database name , database username,
+                         database password in .env file before proceeding forward.
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">Power Plant Name</th>
+                    <th colspan="2"><input type="text" name="power_plant_name" id="power_plant_name" /> </th>
+                </tr>
+                <tr>
                     <th width="25%">Unit Number</th>
                     <th width="25%">Stage Number</th>
                     <th width="25%">Capacity (MW)</th>

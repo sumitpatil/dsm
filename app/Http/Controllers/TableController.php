@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Artisan;
 class TableController extends Controller
 {
          /**
-     * Create dynamic input table along with dynamic fields
+     * Create dynamic table along with dynamic fields
      *
      * @param       $table_name
      * @param array $fields
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createTableInput($table_name, $fields = []){
+    public function createTable($table_name, $fields = []){
         // check if table is not already exists
         if (!Schema::hasTable($table_name)) {
             error_log('tableController createtable function in if');
@@ -47,7 +47,8 @@ class TableController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createTableOutput($table_name, $fields = [])
+   /*
+     public function createTableOutput($table_name, $fields = [])
     {
         // check if table is not already exists
         if (!Schema::hasTable($table_name)) {
@@ -73,7 +74,7 @@ class TableController extends Controller
 
         return response()->json(['message' => 'Given table is already existis.'], 400);
     }
-
+*/
     /**
      * To operate the tabel from the database 
      * 
@@ -118,7 +119,7 @@ class TableController extends Controller
                 ['name' => 'station_consumption', 'type' => 'integer']
             ];
             
-            $this->createTableInput($table_name, $fields);
+            $this->createTable($table_name, $fields);
         }
 
         //for output table creation
@@ -149,9 +150,46 @@ class TableController extends Controller
 
             error_log('tableController operate in for loop after field '.$table_name);
             
-            $this->createTableOutput($table_name, $fields);
+            $this->createTable($table_name, $fields);
         }
         
+
+
+        //create dc (declare capacity )
+        $table_name = 'declare_capacities';
+        error_log($table_name);
+        for($count = 0; $count < count($unit_value); $count++){
+            $data = array(
+                    'name' => $unit_value[$count], 'type'  => 'double'
+                );
+            $insert_data[] = $data; 
+        }
+        $insert_data[]= array(
+            'name'=> 'date',
+            'type' => 'date'
+        );
+
+        error_log('after insert data');
+        
+        Artisan::call('make:model', 
+        ['name'=> 'declare_capacity',
+        '--resource' => true
+        ]);
+        error_log('after model create');
+       
+        $this->createTable($table_name, $insert_data);
+
+        //create dc (declare capacity )
+        $table_name = 'shcedule_generation';
+        error_log($table_name);
+        Artisan::call('make:model', 
+        ['name'=> 'schedule_generations',
+        '--resource' => true
+        ]);
+        
+        $this->createTable($table_name, $insert_data);
+
+
         error_log('tableController operate end for loop');
 
 

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Artisan;
 use App;
 use Validator;
 use App\Http\Controllers\TableController;
+use App\MasterUnitStageCapacity;
+use App\Http\Controllers\MasterDsmBlockController;
 
 class MasterUnitStageCapacityController extends Controller
 {
@@ -55,12 +57,20 @@ class MasterUnitStageCapacityController extends Controller
                     'error'  => $error->errors()->all()
                 ]);
             }
-
+            
+            //configuration file setting;
+ /*           
+            error_log('MasterUnitStageCapacity : configuration before');
+            config(['database.connections.mysql.database' => $request->database_name]);
+            config(['database.connections.mysql.username' => $request->database_username]);
+            config(['database.connections.mysql.password' => $request->database_password]);
+            error_log('MasterUnitStageCapacity : configuration after');
+*/
             // artisan call migrate:reset
             Artisan::call('migrate:reset');
-
-            
             Artisan::call('migrate');
+
+            App\PowerPlantName::insert($request->power_plant_name);
 
             $unit_name = $request->unit_name;
             $stage_name = $request->stage_name;
@@ -88,6 +98,11 @@ class MasterUnitStageCapacityController extends Controller
             error_log('MasterUnitStageCapacityController : after insert operation');    
 
             // App\MasterUnitStageCapacity::insert($insert_data);
+
+            //storeing Master DSM Block in database
+            MasterDsmBlockController::store();
+
+            //Storeing Master Frequency Wise Fixed Value in database
 
             
 
