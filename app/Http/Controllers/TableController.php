@@ -156,7 +156,7 @@ class TableController extends Controller
 
 
         //create dc (declare capacity )
-        $table_name = 'declare_capacities';
+        $table_name = 'input_declare_capacities';
         error_log($table_name);
         for($count = 0; $count < count($unit_value); $count++){
             $data = array(
@@ -170,33 +170,38 @@ class TableController extends Controller
         );
 
         error_log('after insert data');
-        
+        /*
         Artisan::call('make:model', 
-        ['name'=> 'declare_capacity',
+        ['name'=> 'input_declare_capacity',
         '--resource' => true
         ]);
+        */
+        
         error_log('after model create');
        
         $this->createTable($table_name, $insert_data);
 
-        //create dc (declare capacity )
-        $table_name = 'shcedule_generation';
+        //create dc (input  schedule generation )
+        $table_name = 'input_shcedule_generations';
         error_log($table_name);
+      /*
         Artisan::call('make:model', 
-        ['name'=> 'schedule_generations',
+        ['name'=> 'input_schedule_generation',
         '--resource' => true
         ]);
-        
+        */
+
         $this->createTable($table_name, $insert_data);
 
 
         error_log('tableController operate end for loop');
 
-
+/*
         return response()->json([
             'success'  => 'Data Added successfully. Also create tables'
             ]);
-
+*/      
+        return view('installation.success');
     } //end of operate funtion
 
 

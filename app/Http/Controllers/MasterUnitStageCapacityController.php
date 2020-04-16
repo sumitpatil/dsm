@@ -12,6 +12,7 @@ use App;
 use Validator;
 use App\Http\Controllers\TableController;
 use App\MasterUnitStageCapacity;
+
 use App\Http\Controllers\MasterDsmBlockController;
 
 class MasterUnitStageCapacityController extends Controller
@@ -21,6 +22,39 @@ class MasterUnitStageCapacityController extends Controller
      return view('installation.index');
     }
 /*
+
+   function insert(Request $request){      
+        if($request->ajax()){
+            $rules = array(
+            'unit_name.*'  => 'required',
+            'stage_name.*'  => 'required',
+            'capacity_name.*' => 'required'
+            );
+            $error = Validator::make($request->all(), $rules);
+            if($error->fails()){
+                return response()->json([
+                    'error'  => $error->errors()->all()
+                ]);
+            }
+            
+            //configuration file setting;
+           
+            error_log('MasterUnitStageCapacity : configuration before');
+            // config(['database.connections.mysql.database' => $request->database_name]);
+            // config(['database.connections.mysql.username' => $request->database_username]);
+            // config(['database.connections.mysql.password' => $request->database_password]);
+            // error_log('MasterUnitStageCapacity : configuration after');
+
+            // artisan call migrate:reset
+           //    Artisan::call('migrate:reset');
+          //  Artisan::call('migrate');
+
+          App\PowerPlantName::insert($request->power_plant_name);
+
+            $unit_name = $request->unit_name;
+            $stage_name = $request->stage_name;
+            $capacity_name = $request->capacity_name;
+
     function insert()
     {
 
@@ -44,37 +78,24 @@ class MasterUnitStageCapacityController extends Controller
      
     }
 */
-    function insert(Request $request){      
-        if($request->ajax()){
-            $rules = array(
-            'unit_name.*'  => 'required',
-            'stage_name.*'  => 'required',
-            'capacity_name.*' => 'required'
-            );
-            $error = Validator::make($request->all(), $rules);
-            if($error->fails()){
-                return response()->json([
-                    'error'  => $error->errors()->all()
-                ]);
-            }
+
+    function insert()
+    {
+
+          
+            $unit_name =request('unit_name');
+            $stage_name =request('stage_name');
+            $capacity_name = request('capacity_name');
+
+            $plantName = array('name' => request('power_plant_name'));
             
-            //configuration file setting;
- /*           
-            error_log('MasterUnitStageCapacity : configuration before');
-            config(['database.connections.mysql.database' => $request->database_name]);
-            config(['database.connections.mysql.username' => $request->database_username]);
-            config(['database.connections.mysql.password' => $request->database_password]);
-            error_log('MasterUnitStageCapacity : configuration after');
-*/
-            // artisan call migrate:reset
-            Artisan::call('migrate:reset');
-            Artisan::call('migrate');
+            App\PowerPlantName::insert($plantName);
 
-            App\PowerPlantName::insert($request->power_plant_name);
-
-            $unit_name = $request->unit_name;
-            $stage_name = $request->stage_name;
-            $capacity_name = $request->capacity_name;
+            //storeing Master DSM Block in database
+            error_log('MasterUnitStageCapacityController : DSM block store before');    
+            $masterDsmBlockController = new MasterDsmBlockController;
+            $masterDsmBlockController->store();
+            error_log('MasterUnitStageCapacityController : DSM block store after');    
 
             for($count = 0; $count < count($capacity_name); $count++){
                 $data = array(
@@ -85,6 +106,8 @@ class MasterUnitStageCapacityController extends Controller
                 $insert_data[] = $data; 
             }
             
+
+
             error_log('MasterUnitStageCapacityController : before model_name');    
             $model_name = '\\App\\'.'MasterUnitStageCapacity';
 
@@ -99,9 +122,7 @@ class MasterUnitStageCapacityController extends Controller
 
             // App\MasterUnitStageCapacity::insert($insert_data);
 
-            //storeing Master DSM Block in database
-            MasterDsmBlockController::store();
-
+            
             //Storeing Master Frequency Wise Fixed Value in database
 
             
@@ -116,7 +137,7 @@ class MasterUnitStageCapacityController extends Controller
                 $tableCon =new TableController();
                 error_log('MasterUnitStageCapacityController');
                 return $tableCon->operate($unit_name);
-            }
+            
     }//index with argument
     
 
