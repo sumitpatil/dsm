@@ -19,6 +19,7 @@ class CreateMasterUnitStageCapacitiesTable extends Migration
             $table->integer('unit_name');
             $table->integer('stage_name');
             $table->integer('capacity_name');
+            $table->boolean('status');
         });
     }
 

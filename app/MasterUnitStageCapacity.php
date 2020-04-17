@@ -8,6 +8,6 @@ class MasterUnitStageCapacity extends Model
 {
     //
     protected $fillable = [
-        'unit_name', 'stage_name', 'capacity_name'
+        'unit_name', 'stage_name', 'capacity_name', 'status'
     ];
 }

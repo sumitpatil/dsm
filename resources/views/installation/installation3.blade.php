@@ -67,11 +67,12 @@
                             <th colspan="2">Database Username : </th>
                             <th colspan="2">{{config('database.connections.mysql.username')}} </th>
                         </tr>
+                 <!--
                         <tr>
                             <th colspan="2">Database Password : </th>
                             <th colspan="2">{{config('database.connections.mysql.password')}} </th>
                         </tr>
-
+-->
                     </thead>
                     <tbody>
 
@@ -119,11 +120,12 @@
                         <th colspan="2">Database Username : </th>
                         <th colspan="2">{{config('database.connections.mysql.username')}} </th>
                     </tr>
+                    <!--
                     <tr>
                         <th colspan="2">Database Password : </th>
                         <th colspan="2">{{config('database.connections.mysql.password')}} </th>
                     </tr>
-
+                    -->
                 </thead>
                 <tbody>
 

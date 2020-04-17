@@ -27,7 +27,7 @@ class TableController extends Controller
                 $table->increments('in_id');
                 if (count($fields) > 0) {
                     foreach ($fields as $field) {
-                        $table->{$field['type']}($field['name']);
+                        $table->{$field['type']}($field['name'])->nullable();
                     }
                 }
                 $table->timestamps();
@@ -113,10 +113,11 @@ class TableController extends Controller
 
             // set your dynamic fields (you can fetch this data from database this is just an example)
             $fields = [
-                ['name' => 'load', 'type' => 'integer'],
-                ['name' => 'coal_flow', 'type' => 'integer'],
-                ['name' => 'exbus', 'type' => 'integer'],
-                ['name' => 'station_consumption', 'type' => 'integer']
+                ['name' => 'load', 'type' => 'double'],
+                ['name' => 'coal_flow', 'type' => 'double'],
+                ['name' => 'exbus', 'type' => 'double'],
+                ['name' => 'station_consumption', 'type' => 'double'],
+                ['name'=> 'mvr', 'type' => 'double']
             ];
             
             $this->createTable($table_name, $fields);
@@ -143,9 +144,9 @@ class TableController extends Controller
             // set your dynamic fields (you can fetch this data from database this is just an example)
             $fields = [
                 ['name' => 'block', 'type' => 'integer'],
-                ['name' => 'avg_ag', 'type' => 'float'],
-                ['name' => 'deviation', 'type' => 'float'],
-                ['name' => 'gain_or_loss', 'type' => 'float']
+                ['name' => 'avg_ag', 'type' => 'double'],
+                ['name' => 'deviation', 'type' => 'double'],
+                ['name' => 'gain_or_loss', 'type' => 'double']
             ];
 
             error_log('tableController operate in for loop after field '.$table_name);

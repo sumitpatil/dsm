@@ -101,7 +101,8 @@ class MasterUnitStageCapacityController extends Controller
                 $data = array(
                         'unit_name' => $unit_name[$count],
                         'stage_name'  => $stage_name[$count],
-                        'capacity_name'  => $capacity_name[$count]
+                        'capacity_name'  => $capacity_name[$count],
+                        'status' => true
                     );
                 $insert_data[] = $data; 
             }

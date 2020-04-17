@@ -42,44 +42,46 @@ class MasterMahagencoLocationUnitStageCapacityController extends Controller
         switch ($power_plant_location_code) {
             case 'btps':
                 $power_plant_location_name = 'Bhusawal TPS';
-                $power_plant_database_name = 'mgbtps_dsm';
+//                $power_plant_database_name = 'mgbtps_dsm';
                 break;
             case 'cstps':
                 $power_plant_location_name = 'Chandrapur Super TPS';
-                $power_plant_database_name = 'mgcstps_dsm';
+  //              $power_plant_database_name = 'mgcstps_dsm';
                 break;
             case 'kpkdtps':
                 $power_plant_location_name = 'Khaperkheda TPS';
-                $power_plant_database_name = 'mgkpkd_dsm';
+    //            $power_plant_database_name = 'mgkpkd_dsm';
                 break;
             case 'ktps':
                 $power_plant_location_name = 'Koradi TPS';
-                $power_plant_database_name = 'mgktps_dsm';
+      //          $power_plant_database_name = 'mgktps_dsm';
                 break;
             case 'ntps':
                 $power_plant_location_name = 'Nashik TPS';
-                $power_plant_database_name = 'mgntps_dsm';
+        //        $power_plant_database_name = 'mgntps_dsm';
                 break;
             case 'ptps':
                 $power_plant_location_name = 'Paras TPS';
-                $power_plant_database_name = 'mgprs_dsm';
+          //      $power_plant_database_name = 'mgprs_dsm';
                 break;
             case 'prltps':
                 $power_plant_location_name = 'Parly TPS';
-                $power_plant_database_name = 'mgprl_dsm';
+            //    $power_plant_database_name = 'mgprl_dsm';
                 break;
             case 'gtps':
                 $power_plant_location_name = 'Uran GTPS';
-                $power_plant_database_name = 'mggtps_dsm';
+            //  $power_plant_database_name = 'mggtps_dsm';
                 break;
 
             default:
                 # code...
                 break;
         } //end of switch
-
+        
+        $power_plant_database_name = 'dsm';
+        
         return view(
-            'installation.installation2',
+            'installation.installation3',
             [
                 'power_plant_location_name' => $power_plant_location_name,
                 'power_plant_database_name' => $power_plant_database_name
@@ -119,14 +121,14 @@ class MasterMahagencoLocationUnitStageCapacityController extends Controller
         $insert_data[]= array('id' => 9, 'location' => 'Bhusawal TPS', 'unit' => '5', 'stage'=>'3', 'capacity' => '500.00');
         
         //cstps
-        $insert_data[]= array('id' => 10, 'location' => 'Chandrap Super TPS', 'unit' => '3', 'stage'=>'2', 'capacity' => '210.00');
-        $insert_data[]= array('id' => 11, 'location' => 'Chandrap Super TPS', 'unit' => '4', 'stage'=>'2', 'capacity' => '210.00');
-        $insert_data[]= array('id' => 12, 'location' => 'Chandrap Super TPS', 'unit' => '5', 'stage'=>'3', 'capacity' => '500.00');
-        $insert_data[]= array('id' => 13, 'location' => 'Chandrap Super TPS', 'unit' => '6', 'stage'=>'3', 'capacity' => '500.00');
-        $insert_data[]= array('id' => 14, 'location' => 'Chandrap Super TPS', 'unit' => '7', 'stage'=>'3', 'capacity' => '500.00');
-        $insert_data[]= array('id' => 15, 'location' => 'Chandrap Super TPS', 'unit' => '8', 'stage'=>'4', 'capacity' => '500.00');
-        $insert_data[]= array('id' => 16, 'location' => 'Chandrap Super TPS', 'unit' => '9', 'stage'=>'4', 'capacity' => '500.00');
-
+        $insert_data[]= array('id' => 10, 'location' => 'Chandrapur Super TPS', 'unit' => '3', 'stage'=>'2', 'capacity' => '210.00');
+        $insert_data[]= array('id' => 11, 'location' => 'Chandrapur Super TPS', 'unit' => '4', 'stage'=>'2', 'capacity' => '210.00');
+        $insert_data[]= array('id' => 12, 'location' => 'Chandrapur Super TPS', 'unit' => '5', 'stage'=>'3', 'capacity' => '500.00');
+        $insert_data[]= array('id' => 13, 'location' => 'Chandrapur Super TPS', 'unit' => '6', 'stage'=>'3', 'capacity' => '500.00');
+        $insert_data[]= array('id' => 14, 'location' => 'Chandrapur Super TPS', 'unit' => '7', 'stage'=>'3', 'capacity' => '500.00');
+        $insert_data[]= array('id' => 15, 'location' => 'Chandrapur Super TPS', 'unit' => '8', 'stage'=>'4', 'capacity' => '500.00');
+        $insert_data[]= array('id' => 16, 'location' => 'Chandrapur Super TPS', 'unit' => '9', 'stage'=>'4', 'capacity' => '500.00');
+      
 
         //kpkd tps
         $insert_data[]= array('id' => 17, 'location' => 'Khaperkheda TPS', 'unit' => '1', 'stage'=>'1', 'capacity' => '210.00');

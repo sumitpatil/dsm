@@ -32,12 +32,14 @@
                         
                     </th>
                 </tr>
+                <!--
                 <tr class="bg-warning">
                      <th colspan="4">
                          Please also set Database name , database username,
                          database password in .env file before proceeding Next button. 
                     </th>
                 </tr>
+                -->
                </thead>
                <tbody>
 
